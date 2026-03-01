@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrillaSpazio – Centro de Estética</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --rose:       #d4788a;
+  --rose-light: #f5dde3;
+  --rose-dark:  #b05a6e;
+  --green:      #4a7c5f;
+  --green-light:#d4e8dc;
+  --green-dark: #2e5040;
+  --gold:       #c9a96e;
+  --gold-light: #eedbb8;
+  --cream:      #fdf8f2;
+  --dark:       #1a2a22;
+  --text:       #2e4038;
+  --text-soft:  #6a8070;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Jost', sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+/* ─── NAVBAR ─────────────────────────────── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 48px;
+  background: rgba(253,248,242,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(201,169,110,0.2);
+}
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
+  font-weight: 400;
+  color: var(--green-dark);
+  letter-spacing: 1px;
+}
+.nav-logo em { color: var(--rose); font-style: italic; }
+.nav-links { display: flex; gap: 36px; }
+.nav-links a {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-soft);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.nav-links a:hover { color: var(--rose); }
+
+/* ─── HERO ──────────────────────────────── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 100px 48px 60px;
+}
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 90% 10%, rgba(212,120,138,0.16) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 70% at 5% 95%,  rgba(74,124,95,0.14)  0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 50% 50%, rgba(201,169,110,0.07) 0%, transparent 70%);
+}
+/* Círculos decorativos */
+.hero-circle {
+  position: absolute; border-radius: 50%; z-index: 0; opacity: 0.06;
+}
+.hc1 { width: 500px; height: 500px; background: var(--rose);  top: -150px; right: -150px; }
+.hc2 { width: 350px; height: 350px; background: var(--green); bottom: -100px; left: -80px; }
+.hc3 { width: 200px; height: 200px; background: var(--gold);  top: 40%; left: 30%; animation: floatSlow 10s ease-in-out infinite; }
+
+.hero-content {
+  position: relative; z-index: 1;
+  text-align: center;
+  max-width: 680px;
+  animation: heroReveal 1.2s cubic-bezier(0.22,1,0.36,1) both;
+}
+.hero-eyebrow {
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 5px; text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 20px;
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+}
+.hero-eyebrow::before, .hero-eyebrow::after {
+  content: ''; display: block;
+  width: 40px; height: 1px;
+  background: var(--gold); opacity: 0.6;
+}
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(64px, 10vw, 96px);
+  font-weight: 300;
+  line-height: 0.95;
+  color: var(--green-dark);
+  margin-bottom: 10px;
+}
+.hero-title em { font-style: italic; color: var(--rose); }
+.hero-tagline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px; font-weight: 300; font-style: italic;
+  color: var(--gold);
+  letter-spacing: 2px;
+  margin-bottom: 36px;
+}
+.hero-desc {
+  font-size: 14px; font-weight: 300;
+  line-height: 1.9; color: var(--text-soft);
+  margin-bottom: 44px;
+  max-width: 460px; margin-left: auto; margin-right: auto;
+}
+.hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.btn-primary {
+  background: var(--rose);
+  color: white;
+  padding: 14px 36px;
+  font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase;
+  text-decoration: none; border: none; cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+.btn-primary:hover { background: var(--rose-dark); transform: translateY(-2px); }
+.btn-secondary {
+  background: transparent;
+  color: var(--green-dark);
+  padding: 14px 36px;
+  font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase;
+  text-decoration: none; border: 1px solid rgba(74,124,95,0.4); cursor: pointer;
+  transition: border-color 0.3s, color 0.3s, transform 0.2s;
+}
+.btn-secondary:hover { border-color: var(--green); color: var(--green); transform: translateY(-2px); }
+
+/* Promo badge */
+.promo-badge {
+  margin-top: 48px;
+  display: inline-flex; align-items: center; gap: 14px;
+  background: var(--green-dark);
+  color: var(--cream);
+  padding: 12px 28px;
+  font-size: 12px; letter-spacing: 1px;
+}
+.promo-badge strong { color: var(--gold); font-family: 'Cormorant Garamond', serif; font-size: 22px; }
+
+/* ─── DIVIDER ───────────────────────────── */
+.section-divider {
+  display: flex; align-items: center; justify-content: center; gap: 16px;
+  padding: 12px 0;
+}
+.section-divider hr {
+  border: none; height: 1px; width: 80px;
+  background: linear-gradient(to right, transparent, var(--gold));
+  opacity: 0.5;
+}
+.section-divider hr.r { background: linear-gradient(to left, transparent, var(--gold)); }
+.section-divider .ico { font-size: 16px; }
+
+/* ─── SECTION HEADER ────────────────────── */
+.section-header { text-align: center; margin-bottom: 60px; }
+.section-label {
+  font-size: 9px; font-weight: 700; letter-spacing: 5px; text-transform: uppercase;
+  color: var(--rose); margin-bottom: 12px;
+}
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(38px, 5vw, 52px); font-weight: 300;
+  color: var(--green-dark); line-height: 1.1;
+}
+.section-title em { font-style: italic; color: var(--rose); }
+
+/* ─── SERVICIOS ─────────────────────────── */
+#servicios {
+  padding: 100px 48px;
+  background: white;
+  position: relative; overflow: hidden;
+}
+#servicios::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(to right, var(--rose), var(--gold), var(--green));
+}
+.servicios-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 28px;
+  max-width: 1100px; margin: 0 auto;
+}
+.servicio-card {
+  background: var(--cream);
+  padding: 40px 32px;
+  border: 1px solid rgba(201,169,110,0.2);
+  transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+  position: relative; overflow: hidden;
+}
+.servicio-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0;
+  width: 3px; height: 0;
+  background: linear-gradient(to bottom, var(--rose), var(--gold));
+  transition: height 0.4s;
+}
+.servicio-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.07); border-color: rgba(212,120,138,0.3); }
+.servicio-card:hover::before { height: 100%; }
+.servicio-icon { font-size: 32px; margin-bottom: 18px; }
+.servicio-nombre {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px; font-weight: 400;
+  color: var(--green-dark); margin-bottom: 10px;
+}
+.servicio-desc { font-size: 13px; font-weight: 300; line-height: 1.8; color: var(--text-soft); }
+
+/* ─── GALERÍA ───────────────────────────── */
+#galeria {
+  padding: 100px 48px;
+  background: var(--cream);
+}
+.galeria-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 240px 240px;
+  gap: 12px;
+  max-width: 1100px; margin: 0 auto;
+}
+.galeria-item {
+  position: relative; overflow: hidden;
+  background: var(--green-light);
+}
+.galeria-item:first-child { grid-row: 1 / 3; }
+.galeria-placeholder {
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 10px;
+  background: linear-gradient(135deg, var(--green-light), var(--rose-light));
+  transition: transform 0.5s;
+  cursor: pointer;
+}
+.galeria-item:hover .galeria-placeholder { transform: scale(1.04); }
+.galeria-placeholder .gp-icon { font-size: 32px; opacity: 0.5; }
+.galeria-placeholder .gp-text {
+  font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--green-dark); opacity: 0.5;
+}
+.galeria-overlay {
+  position: absolute; inset: 0;
+  background: rgba(46,80,64,0.7);
+  opacity: 0; transition: opacity 0.3s;
+  display: flex; align-items: center; justify-content: center;
+  color: white; font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase;
+}
+.galeria-item:hover .galeria-overlay { opacity: 1; }
+
+.galeria-nota {
+  text-align: center; margin-top: 28px;
+  font-size: 11px; color: var(--text-soft); letter-spacing: 1px;
+}
+.galeria-nota a { color: var(--rose); text-decoration: none; font-weight: 600; }
+
+/* ─── PROMO BANNER ──────────────────────── */
+.promo-section {
+  padding: 80px 48px;
+  background: var(--green-dark);
+  position: relative; overflow: hidden;
+  text-align: center;
+}
+.promo-section::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 80% at 80% 50%, rgba(212,120,138,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 80% at 20% 50%, rgba(201,169,110,0.10) 0%, transparent 60%);
+}
+.promo-content { position: relative; z-index: 1; max-width: 600px; margin: 0 auto; }
+.promo-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 5px; text-transform: uppercase;
+  color: var(--rose-light); opacity: 0.8; margin-bottom: 16px;
+}
+.promo-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(36px, 6vw, 58px); font-weight: 300;
+  color: var(--cream); line-height: 1.1; margin-bottom: 8px;
+}
+.promo-pct {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(72px, 12vw, 110px); font-weight: 600;
+  color: var(--gold); line-height: 1; margin-bottom: 8px;
+  animation: pulseGold 3s ease-in-out infinite;
+}
+.promo-off {
+  font-size: 11px; font-weight: 700; letter-spacing: 6px; text-transform: uppercase;
+  color: var(--rose-light); margin-bottom: 24px;
+}
+.promo-sub { font-size: 13px; font-weight: 300; color: rgba(255,255,255,0.55); margin-bottom: 36px; line-height: 1.8; }
+
+/* ─── CONTACTO / WHATSAPP ───────────────── */
+#contacto {
+  padding: 100px 48px;
+  background: white;
+  text-align: center;
+}
+.wa-card {
+  max-width: 480px; margin: 0 auto;
+  background: var(--cream);
+  border: 1px solid rgba(201,169,110,0.25);
+  padding: 56px 48px;
+}
+.wa-icon { font-size: 52px; margin-bottom: 20px; }
+.wa-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 38px; font-weight: 300;
+  color: var(--green-dark); margin-bottom: 12px;
+}
+.wa-desc { font-size: 13px; font-weight: 300; line-height: 1.9; color: var(--text-soft); margin-bottom: 32px; }
+.btn-wa {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: #25D366;
+  color: white;
+  padding: 16px 40px;
+  font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.3s, transform 0.2s;
+}
+.btn-wa:hover { background: #1ebe5a; transform: translateY(-2px); }
+
+/* ─── FOOTER ────────────────────────────── */
+footer {
+  background: var(--dark);
+  padding: 40px 48px;
+  text-align: center;
+  border-top: 1px solid rgba(201,169,110,0.15);
+}
+.footer-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px; font-weight: 300;
+  color: var(--cream); margin-bottom: 10px;
+}
+.footer-logo em { color: var(--rose); font-style: italic; }
+.footer-tagline { font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: rgba(255,255,255,0.25); margin-bottom: 24px; }
+.footer-copy { font-size: 11px; color: rgba(255,255,255,0.2); }
+
+/* ─── WA FLOTANTE ───────────────────────── */
+.wa-float {
+  position: fixed; bottom: 28px; right: 28px; z-index: 200;
+  width: 58px; height: 58px; border-radius: 50%;
+  background: #25D366;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px; text-decoration: none;
+  box-shadow: 0 6px 24px rgba(37,211,102,0.4);
+  animation: waPulse 2.5s ease-in-out infinite;
+  transition: transform 0.2s;
+}
+.wa-float:hover { transform: scale(1.1); }
+
+/* ─── ANIMATIONS ────────────────────────── */
+@keyframes heroReveal { from { opacity:0; transform:translateY(30px) } to { opacity:1; transform:none } }
+@keyframes floatSlow  { 0%,100% { transform:translateY(0) } 50% { transform:translateY(-25px) } }
+@keyframes pulseGold  { 0%,100% { opacity:1 } 50% { opacity:0.75 } }
+@keyframes waPulse    { 0%,100% { box-shadow: 0 6px 24px rgba(37,211,102,0.4) } 50% { box-shadow: 0 6px 38px rgba(37,211,102,0.7) } }
+
+/* ─── REVEAL ON SCROLL ──────────────────── */
+.reveal { opacity:0; transform:translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity:1; transform:none; }
+
+/* ─── RESPONSIVE ────────────────────────── */
+@media(max-width:768px){
+  nav { padding:16px 24px; }
+  .nav-links { display:none; }
+  .hero { padding:100px 24px 60px; }
+  #servicios, #galeria, #contacto { padding:70px 24px; }
+  .galeria-grid { grid-template-columns:1fr 1fr; grid-template-rows:auto; }
+  .galeria-item:first-child { grid-row:auto; }
+  .promo-section { padding:60px 24px; }
+  footer { padding:32px 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Brilla<em>Spazio</em></div>
+  <div class="nav-links">
+    <a href="#servicios">Servicios</a>
+    <a href="#galeria">Galería</a>
+    <a href="#horarios">Horarios</a>
+    <a href="#contacto">Contacto</a>
+  </div>
+</nav>
+
+<!-- WA FLOTANTE -->
+<a class="wa-float" href="https://wa.me/message/KAGIKK7VF4OPM1" target="_blank" title="WhatsApp">💬</a>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hc1 hero-circle"></div>
+  <div class="hc2 hero-circle"></div>
+  <div class="hc3 hero-circle"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Centro de Estética</div>
+    <h1 class="hero-title">Brilla<em>Spazio</em></h1>
+    <p class="hero-tagline">donde tu belleza florece</p>
+    <p class="hero-desc">Un espacio pensado para vos. Tratamientos profesionales, atención personalizada y el cuidado que merecés en cada visita.</p>
+    <div class="hero-btns">
+      <a class="btn-primary" href="https://wa.me/message/KAGIKK7VF4OPM1" target="_blank">Reservá tu turno</a>
+      <a class="btn-secondary" href="#servicios">Ver servicios</a>
+    </div>
+    <div class="promo-badge">
+      🌸 &nbsp;Marzo – Mes de la Mujer &nbsp;·&nbsp; <strong>20% OFF</strong> &nbsp;en todos los tratamientos
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section id="servicios">
+  <div class="section-header reveal">
+    <p class="section-label">✦ Lo que ofrecemos ✦</p>
+    <h2 class="section-title">Nuestros <em>servicios</em></h2>
+  </div>
+  <div class="servicios-grid">
+    <div class="servicio-card reveal">
+      <div class="servicio-icon">🌿</div>
+      <h3 class="servicio-nombre">Masaje Relajante</h3>
+      <p class="servicio-desc">Un viaje de descanso profundo para liberar el estrés y las tensiones del día a día. Tu mente y cuerpo lo necesitan.</p>
+    </div>
+    <div class="servicio-card reveal">
+      <div class="servicio-icon">💆</div>
+      <h3 class="servicio-nombre">Masaje Descontracturante</h3>
+      <p class="servicio-desc">Técnica especializada para aliviar contracturas musculares, nudos y dolores puntuales. Resultados desde la primera sesión.</p>
+    </div>
+    <div class="servicio-card reveal">
+      <div class="servicio-icon">🫧</div>
+      <h3 class="servicio-nombre">Drenaje Linfático</h3>
+      <p class="servicio-desc">Técnica suave y rítmica que activa la circulación linfática, reduce la retención de líquidos y mejora la figura naturalmente.</p>
+    </div>
+    <div class="servicio-card reveal">
+      <div class="servicio-icon">⚡</div>
+      <h3 class="servicio-nombre">Electroestimulación</h3>
+      <p class="servicio-desc">Tecnología de última generación para tonificar músculos, reducir medidas y mejorar el contorno corporal de forma efectiva.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROMO BANNER -->
+<section class="promo-section">
+  <div class="promo-content">
+    <p class="promo-label">✦ Oferta especial · Marzo 2026 ✦</p>
+    <h2 class="promo-title">Mes de la Mujer</h2>
+    <div class="promo-pct">20%</div>
+    <p class="promo-off">de descuento en todos los tratamientos</p>
+    <p class="promo-sub">Porque invertir en vos no es un lujo, es una prioridad.<br>Válido todo marzo · Cupos limitados.</p>
+    <a class="btn-primary" href="https://wa.me/message/KAGIKK7VF4OPM1" target="_blank">Quiero aprovechar la promo</a>
+  </div>
+</section>
+
+<!-- GALERÍA -->
+<section id="galeria">
+  <div class="section-header reveal">
+    <p class="section-label">✦ Nuestro espacio ✦</p>
+    <h2 class="section-title">La <em>galería</em></h2>
+  </div>
+  <div class="galeria-grid">
+    <div class="galeria-item reveal">
+      <div class="galeria-placeholder">
+        <span class="gp-icon">📸</span>
+        <span class="gp-text">Tu foto aquí</span>
+      </div>
+      <div class="galeria-overlay">Ver más</div>
+    </div>
+    <div class="galeria-item reveal">
+      <div class="galeria-placeholder">
+        <span class="gp-icon">📸</span>
+        <span class="gp-text">Tu foto aquí</span>
+      </div>
+      <div class="galeria-overlay">Ver más</div>
+    </div>
+    <div class="galeria-item reveal">
+      <div class="galeria-placeholder">
+        <span class="gp-icon">📸</span>
+        <span class="gp-text">Tu foto aquí</span>
+      </div>
+      <div class="galeria-overlay">Ver más</div>
+    </div>
+    <div class="galeria-item reveal">
+      <div class="galeria-placeholder">
+        <span class="gp-icon">📸</span>
+        <span class="gp-text">Tu foto aquí</span>
+      </div>
+      <div class="galeria-overlay">Ver más</div>
+    </div>
+    <div class="galeria-item reveal">
+      <div class="galeria-placeholder">
+        <span class="gp-icon">📸</span>
+        <span class="gp-text">Tu foto aquí</span>
+      </div>
+      <div class="galeria-overlay">Ver más</div>
+    </div>
+  </div>
+  <p class="galeria-nota reveal">
+    ¿Querés ver más? Seguinos en <a href="#">Instagram @BrillaSpazio</a> 🌸
+  </p>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <div class="section-header reveal">
+    <p class="section-label">✦ Hablemos ✦</p>
+    <h2 class="section-title">Reservá tu <em>turno</em></h2>
+  </div>
+  <div class="wa-card reveal">
+    <div class="wa-icon">💬</div>
+    <h3 class="wa-title">Escribinos por WhatsApp</h3>
+    <p class="wa-desc">Atendemos consultas y reservas de lunes a sábados. ¡Respondemos rápido! Contanos qué servicio te interesa y coordinamos tu turno.</p>
+    <a class="btn-wa" href="https://wa.me/message/KAGIKK7VF4OPM1" target="_blank">
+      💬 &nbsp;Contactar por WhatsApp
+    </a>
+  </div>
+</section>
+
+<!-- HORARIOS -->
+<section id="horarios" style="padding:100px 48px; background:var(--cream); text-align:center;">
+  <div class="section-header reveal">
+    <p class="section-label">✦ Cuándo encontrarnos ✦</p>
+    <h2 class="section-title">Horarios de <em>atención</em></h2>
+  </div>
+  <div style="display:flex; gap:20px; justify-content:center; flex-wrap:wrap; max-width:700px; margin:0 auto;">
+    <div class="reveal" style="background:white; border:1px solid rgba(201,169,110,0.25); padding:36px 40px; flex:1; min-width:240px;">
+      <div style="font-size:28px; margin-bottom:14px;">📅</div>
+      <h3 style="font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:400; color:var(--green-dark); margin-bottom:8px;">Lun · Mar · Jue</h3>
+      <div style="width:40px; height:2px; background:var(--rose); margin:0 auto 14px;"></div>
+      <p style="font-size:26px; font-family:'Cormorant Garamond',serif; color:var(--rose); font-weight:600;">9:00 – 20:00</p>
+    </div>
+    <div class="reveal" style="background:white; border:1px solid rgba(201,169,110,0.25); padding:36px 40px; flex:1; min-width:240px;">
+      <div style="font-size:28px; margin-bottom:14px;">📅</div>
+      <h3 style="font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:400; color:var(--green-dark); margin-bottom:8px;">Mié · Vie · Sáb</h3>
+      <div style="width:40px; height:2px; background:var(--gold); margin:0 auto 14px;"></div>
+      <p style="font-size:26px; font-family:'Cormorant Garamond',serif; color:var(--gold); font-weight:600;">9:00 – 13:00</p>
+    </div>
+  </div>
+  <p class="reveal" style="margin-top:28px; font-size:12px; color:var(--text-soft); letter-spacing:1px;">
+    🌿 Domingos y feriados: cerrado &nbsp;·&nbsp; Reservá tu turno por WhatsApp
+  </p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Brilla<em>Spazio</em></div>
+  <p class="footer-tagline">Centro de Estética · Tu belleza, nuestra pasión</p>
+  <p class="footer-copy">© 2026 BrillaSpazio. Todos los derechos reservados.</p>
+</footer>
+
+<script>
+// Reveal on scroll
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if(entry.isIntersecting){
+      setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
